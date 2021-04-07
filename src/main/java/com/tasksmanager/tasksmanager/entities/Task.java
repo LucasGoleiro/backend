@@ -2,18 +2,39 @@ package com.tasksmanager.tasksmanager.entities;
 
 import java.io.Serializable;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+@Entity
 public class Task implements Serializable{
 	private static final long serialVersionUID = 1L;
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String description;
+	private String status;
+	private String creation;
+	private String finished;
+	
+	@ManyToOne
+	@JoinColumn(name = "team_member_id")
+	private TeamMember teamMember;
 	
 	public Task() {
 	}
 
-	public Task(Long id, String description) {
+	public Task(Long id, TeamMember teamMember, String description, String creation) {
 		super();
 		this.id = id;
 		this.description = description;
+		this.teamMember = teamMember;
+		this.creation = creation;
+		this.status = "Backlog";
 	}
 
 	public Long getId() {
@@ -30,6 +51,38 @@ public class Task implements Serializable{
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public String getCreation() {
+		return creation;
+	}
+
+	public void setCreation(String creation) {
+		this.creation = creation;
+	}
+
+	public String getFinished() {
+		return finished;
+	}
+
+	public void setFinished(String finished) {
+		this.finished = finished;
+	}
+	
+	public TeamMember getTeamMember() {
+		return teamMember;
+	}
+
+	public void setTeamMember(TeamMember teamMember) {
+		this.teamMember = teamMember;
 	}
 
 	@Override
