@@ -10,27 +10,27 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.tasksmanager.tasksmanager.entities.Task;
-import com.tasksmanager.tasksmanager.repositories.TaskRepository;
+import com.tasksmanager.tasksmanager.entities.TeamMember;
+import com.tasksmanager.tasksmanager.repositories.TeamMemberRepository;
 
 @RestController
-@RequestMapping(value = "/tasks")
-public class TaskResource {
+@RequestMapping(value = "/team-members")
+public class TeamMemberResource {
 
 	@Autowired
-	private TaskRepository taskRepository;
+	private TeamMemberRepository taskRepository;
 	
 	@CrossOrigin
 	@GetMapping
-	public ResponseEntity<List<Task>> findAll() {
-		List<Task> list = taskRepository.findAll();
+	public ResponseEntity<List<TeamMember>> findAll() {
+		List<TeamMember> list = taskRepository.findAll();
 		
 		return ResponseEntity.ok().body(list);
 	}
 
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<Task> findById(@PathVariable Long id) {
-		Task task = taskRepository.findById(id).get();
+	public ResponseEntity<TeamMember> findById(@PathVariable Long id) {
+		TeamMember task = taskRepository.findById(id).get();
 		
 		return ResponseEntity.ok().body(task);
 	} 
