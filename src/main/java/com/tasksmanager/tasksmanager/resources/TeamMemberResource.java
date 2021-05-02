@@ -7,9 +7,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.tasksmanager.tasksmanager.entities.Task;
 import com.tasksmanager.tasksmanager.entities.TeamMember;
 import com.tasksmanager.tasksmanager.repositories.TeamMemberRepository;
 
@@ -18,20 +21,41 @@ import com.tasksmanager.tasksmanager.repositories.TeamMemberRepository;
 public class TeamMemberResource {
 
 	@Autowired
-	private TeamMemberRepository taskRepository;
+	private TeamMemberRepository teamMemberRepository;
 	
 	@CrossOrigin
 	@GetMapping
 	public ResponseEntity<List<TeamMember>> findAll() {
-		List<TeamMember> list = taskRepository.findAll();
+		List<TeamMember> list = teamMemberRepository.findAll();
 		
 		return ResponseEntity.ok().body(list);
 	}
 
+	@CrossOrigin
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<TeamMember> findById(@PathVariable Long id) {
-		TeamMember task = taskRepository.findById(id).get();
+		TeamMember task = teamMemberRepository.findById(id).get();
 		
 		return ResponseEntity.ok().body(task);
+	} 
+	
+	@CrossOrigin
+	@RequestMapping(method =  RequestMethod.POST)
+    public TeamMember create(@RequestBody TeamMember teamMember)
+    {
+        return teamMemberRepository.save(teamMember);
+    }
+	
+	@CrossOrigin
+	@RequestMapping(value = "/{id}", method =  RequestMethod.PUT)
+	public TeamMember update(@PathVariable Long id, @RequestBody TeamMember teamMember) {
+		teamMember.setId(id);
+		return teamMemberRepository.save(teamMember);
+	} 
+	
+	@CrossOrigin
+	@RequestMapping(value = "/{id}", method =  RequestMethod.DELETE)
+	public void delete(@PathVariable Long id) {
+		teamMemberRepository.deleteById(id);
 	} 
 }
