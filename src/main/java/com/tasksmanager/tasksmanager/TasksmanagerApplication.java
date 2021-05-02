@@ -29,14 +29,14 @@ public class TasksmanagerApplication implements CommandLineRunner{
 
 	@Override
 	public void run(String... args) throws Exception {
-		TeamMember teamMember1 = new TeamMember(null, "Lucas", "lucas@email.com", "123", "FullStack");
-		TeamMember teamMember2 = new TeamMember(null, "Maria", "maria@email.com", "123", "UX Design");
+		TeamMember teamMember1 = new TeamMember(null, "Lucas", "lucas@email.com", "123", "Desenvolvedor(a) FullStack");
+		TeamMember teamMember2 = new TeamMember(null, "Maria", "maria@email.com", "123", "UX/UI Design");
 		
 		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");  
 	    Date date = new Date();
 	    String formatedDate = formatter.format(date);
 		
-		Task task1 = new Task(null, teamMember1, "description teste 1", formatedDate);
+	    Task task1 = new Task(null, teamMember1, "description teste 1", formatedDate);
 		Task task2 = new Task(null, teamMember1, "description teste 2", formatedDate);
 		Task task3 = new Task(null, teamMember2, "description teste 3", formatedDate);
 		Task task4 = new Task(null, teamMember2, "description teste 4", formatedDate);
