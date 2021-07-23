@@ -11,8 +11,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.tasksmanager.tasksmanager.domain.enums.Profile;
+import com.tasksmanager.tasksmanager.entities.Position;
 import com.tasksmanager.tasksmanager.entities.Task;
 import com.tasksmanager.tasksmanager.entities.TeamMember;
+import com.tasksmanager.tasksmanager.repositories.PositionRepository;
 import com.tasksmanager.tasksmanager.repositories.TaskRepository;
 import com.tasksmanager.tasksmanager.repositories.TeamMemberRepository;
 
@@ -24,6 +26,9 @@ public class TasksmanagerApplication implements CommandLineRunner{
 	
 	@Autowired
 	private TeamMemberRepository teamMemberRepository;
+	
+	@Autowired
+	private PositionRepository positionRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(TasksmanagerApplication.class, args);
@@ -31,11 +36,15 @@ public class TasksmanagerApplication implements CommandLineRunner{
 
 	@Override
 	public void run(String... args) throws Exception {
-		TeamMember teamMember1Admin = new TeamMember(null, "Admin", "admin@email.com", "123", "Desenvolvedor(a) FullStack");
-		teamMember1Admin.addProfile(Profile.ADMIN);
+		Position position1 = new Position(null, "Gerente");
+		Position position2 = new Position(null, "Admin");
+		Position position3 = new Position(null, "Operador");
 		
-		TeamMember teamMember1 = new TeamMember(null, "Lucas Santos", "lucas@email.com", "123", "Desenvolvedor(a) FullStack");
-		TeamMember teamMember2 = new TeamMember(null, "Maria Aparecida", "maria@email.com", "123", "UX/UI Design");
+		TeamMember teamMemberAdmin = new TeamMember(null, "admin", "admin@email.com", "123", position2);
+		teamMemberAdmin.addProfile(Profile.ADMIN);
+		
+		TeamMember teamMember1 = new TeamMember(null, "Lucas Santos", "lucas@email.com", "123", position1);
+		TeamMember teamMember2 = new TeamMember(null, "Maria Aparecida", "maria@email.com", "123", position3);
 		
 		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");  
 	    Date date = new Date();
@@ -52,8 +61,12 @@ public class TasksmanagerApplication implements CommandLineRunner{
 		
 		teamMember1.setTasks(Arrays.asList(task1, task2, task5, task6));
 		teamMember2.setTasks(Arrays.asList(task3, task4, task7, task8));
+		
+		positionRepository.save(position1);
+		positionRepository.save(position2);
+		positionRepository.save(position3);
 	
-		teamMemberRepository.save(teamMember1Admin);
+		teamMemberRepository.save(teamMemberAdmin);
 		teamMemberRepository.save(teamMember1);
 		teamMemberRepository.save(teamMember2);
 		

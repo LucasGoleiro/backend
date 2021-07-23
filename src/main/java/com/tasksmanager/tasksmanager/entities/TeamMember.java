@@ -8,12 +8,15 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.persistence.CollectionTable;
+import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -28,14 +31,21 @@ public class TeamMember implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	@Column(nullable = false)
 	private String name;
 	
+	@Column(nullable = false)
 	private String email;
 	
 	//@JsonIgnore
+	@Column(nullable = false)
 	private String password;
 	
-	private String position;
+	//private String position;
+	
+	@ManyToOne
+	@JoinColumn(nullable = false, name = "position_id")
+	private Position positionId;
 	
 	@JsonIgnore
 	@OneToMany(mappedBy = "teamMember")
@@ -49,13 +59,13 @@ public class TeamMember implements Serializable{
 		addProfile(Profile.TEAM_MEMBER);
 	}
 
-	public TeamMember(Long id, String name, String email, String password, String position) {
+	public TeamMember(Long id, String name, String email, String password, Position positionId) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.email = email;
 		this.password = password;
-		this.position = position;
+		this.positionId = positionId;
 		addProfile(Profile.TEAM_MEMBER);
 	}
 	
@@ -91,12 +101,12 @@ public class TeamMember implements Serializable{
 		this.password = password;
 	}
 	
-	public String getPosition() {
-		return position;
+	public Position getPosition() {
+		return positionId;
 	}
 
-	public void setPosition(String position) {
-		this.position = position;
+	public void setPosition(Position positionId) {
+		this.positionId = positionId;
 	}
 
 	public List<Task> getTasks() {
