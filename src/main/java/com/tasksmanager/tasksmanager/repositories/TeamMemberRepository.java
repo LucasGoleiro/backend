@@ -7,6 +7,4 @@ import com.tasksmanager.tasksmanager.entities.TeamMember;
 
 @Repository
 public interface TeamMemberRepository extends JpaRepository<TeamMember, Long>{
-	
-
 }

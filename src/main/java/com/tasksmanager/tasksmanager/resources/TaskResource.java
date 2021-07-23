@@ -23,7 +23,6 @@ public class TaskResource {
 	@Autowired
 	private TaskRepository taskRepository;
 	
-	@CrossOrigin
 	@GetMapping
 	public ResponseEntity<List<Task>> findAll() {
 		List<Task> list = taskRepository.findAll();
@@ -31,7 +30,6 @@ public class TaskResource {
 		return ResponseEntity.ok().body(list);
 	}
 
-	@CrossOrigin
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<Task> findById(@PathVariable Long id) {
 		Task task = taskRepository.findById(id).get();
@@ -39,21 +37,18 @@ public class TaskResource {
 		return ResponseEntity.ok().body(task);
 	} 
 	
-	@CrossOrigin
 	@RequestMapping(method =  RequestMethod.POST)
     public Task Post(@RequestBody Task task)
     {
         return taskRepository.save(task);
     }
 	
-	@CrossOrigin
 	@RequestMapping(value = "/{id}", method =  RequestMethod.PUT)
 	public Task update(@PathVariable Long id, @RequestBody Task task) {
 		task.setId(id);
 		return taskRepository.save(task);
 	} 
 	
-	@CrossOrigin
 	@RequestMapping(value = "/{id}", method =  RequestMethod.DELETE)
 	public void delete(@PathVariable Long id) {
 		taskRepository.deleteById(id);

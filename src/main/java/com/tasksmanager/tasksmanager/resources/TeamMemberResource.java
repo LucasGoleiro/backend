@@ -23,7 +23,6 @@ public class TeamMemberResource {
 	@Autowired
 	private TeamMemberRepository teamMemberRepository;
 	
-	@CrossOrigin
 	@GetMapping
 	public ResponseEntity<List<TeamMember>> findAll() {
 		List<TeamMember> list = teamMemberRepository.findAll();
@@ -31,29 +30,25 @@ public class TeamMemberResource {
 		return ResponseEntity.ok().body(list);
 	}
 
-	@CrossOrigin
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<TeamMember> findById(@PathVariable Long id) {
-		TeamMember task = teamMemberRepository.findById(id).get();
+		TeamMember teamMemnber = teamMemberRepository.findById(id).get();
 		
-		return ResponseEntity.ok().body(task);
-	} 
+		return ResponseEntity.ok().body(teamMemnber);
+	}
 	
-	@CrossOrigin
 	@RequestMapping(method =  RequestMethod.POST)
     public TeamMember create(@RequestBody TeamMember teamMember)
     {
         return teamMemberRepository.save(teamMember);
     }
 	
-	@CrossOrigin
 	@RequestMapping(value = "/{id}", method =  RequestMethod.PUT)
 	public TeamMember update(@PathVariable Long id, @RequestBody TeamMember teamMember) {
 		teamMember.setId(id);
 		return teamMemberRepository.save(teamMember);
 	} 
 	
-	@CrossOrigin
 	@RequestMapping(value = "/{id}", method =  RequestMethod.DELETE)
 	public void delete(@PathVariable Long id) {
 		teamMemberRepository.deleteById(id);

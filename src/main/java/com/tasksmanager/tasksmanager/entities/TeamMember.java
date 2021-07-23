@@ -1,34 +1,52 @@
 package com.tasksmanager.tasksmanager.entities;
 
 import java.io.Serializable;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
+import javax.persistence.CollectionTable;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.tasksmanager.tasksmanager.domain.enums.Profile;
 
 @Entity
 public class TeamMember implements Serializable{
+	
 	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
 	private String name;
+	
 	private String email;
+	
+	//@JsonIgnore
 	private String password;
+	
 	private String position;
 	
 	@JsonIgnore
 	@OneToMany(mappedBy = "teamMember")
 	private List<Task> tasks = new ArrayList<>();
 	
+	@ElementCollection(fetch=FetchType.EAGER)
+	@CollectionTable(name="PROFILES")
+	private Set<Integer> profiles = new HashSet<>();
+	
 	public TeamMember() {
+		addProfile(Profile.TEAM_MEMBER);
 	}
 
 	public TeamMember(Long id, String name, String email, String password, String position) {
@@ -38,6 +56,7 @@ public class TeamMember implements Serializable{
 		this.email = email;
 		this.password = password;
 		this.position = position;
+		addProfile(Profile.TEAM_MEMBER);
 	}
 	
 	public Long getId() {
@@ -87,6 +106,14 @@ public class TeamMember implements Serializable{
 	public void setTasks(List<Task> tasks) {
 		this.tasks = tasks;
 	} 
+	
+	public void addProfile(Profile profile) {
+		profiles.add(profile.getCod());
+	}
+	
+	public Set<Profile> getPerfis() {
+		return profiles.stream().map(x -> Profile.toEnum(x)).collect(Collectors.toSet());
+	}
 
 	@Override
 	public int hashCode() {
