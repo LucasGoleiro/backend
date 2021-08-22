@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,45 +11,45 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.tasksmanager.tasksmanager.entities.Task;
-import com.tasksmanager.tasksmanager.repositories.TaskRepository;
-import com.tasksmanager.tasksmanager.repositories.TeamMemberRepository;
+import com.tasksmanager.tasksmanager.entities.Position;
+import com.tasksmanager.tasksmanager.repositories.PositionRepository;
 
 @RestController
-@RequestMapping(value = "/tasks")
-public class TaskResource {
-
+@RequestMapping(value = "/positions")
+public class PositionResource {
+	
 	@Autowired
-	private TaskRepository taskRepository;
+	PositionRepository positionRepository;
 	
 	@GetMapping
-	public ResponseEntity<List<Task>> findAll() {
-		List<Task> list = taskRepository.findAll();
+	public ResponseEntity<List<Position>> findAll() {
+		List<Position> list = positionRepository.findAll();
 		
 		return ResponseEntity.ok().body(list);
 	}
 
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<Task> findById(@PathVariable Long id) {
-		Task task = taskRepository.findById(id).get();
+	public ResponseEntity<Position> findById(@PathVariable Long id) {
+		Position position = positionRepository.findById(id).get();
 		
-		return ResponseEntity.ok().body(task);
+		return ResponseEntity.ok().body(position);
 	} 
 	
 	@RequestMapping(method =  RequestMethod.POST)
-    public Task Post(@RequestBody Task task)
+    public Position Post(@RequestBody Position position)
     {
-        return taskRepository.save(task);
+        return positionRepository.save(position);
     }
 	
 	@RequestMapping(value = "/{id}", method =  RequestMethod.PUT)
-	public Task update(@PathVariable Long id, @RequestBody Task task) {
-		task.setId(id);
-		return taskRepository.save(task);
+	public Position update(@PathVariable Long id, @RequestBody Position position) {
+		position.setId(id);
+		return positionRepository.save(position);
 	} 
 	
 	@RequestMapping(value = "/{id}", method =  RequestMethod.DELETE)
 	public void delete(@PathVariable Long id) {
-		taskRepository.deleteById(id);
+		positionRepository.deleteById(id);
 	} 
+
 }

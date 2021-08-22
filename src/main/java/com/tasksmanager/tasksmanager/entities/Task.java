@@ -2,6 +2,7 @@ package com.tasksmanager.tasksmanager.entities;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,9 +17,17 @@ public class Task implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
+	@Column(nullable = false)
 	private String description;
+	
+	@Column(nullable = false)
 	private String status;
+	
+	@Column()
 	private String creation;
+	
+	@Column()
 	private String finished;
 	
 	@ManyToOne
