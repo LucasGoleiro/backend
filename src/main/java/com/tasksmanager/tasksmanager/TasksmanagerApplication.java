@@ -47,10 +47,13 @@ public class TasksmanagerApplication implements CommandLineRunner{
 		TeamMember teamMember2 = new TeamMember(null, "Henrique Lima", "henrique@email.com", "123", position3);
 		TeamMember teamMember3 = new TeamMember(null, "João Vitor", "joao@email.com", "123", position3);
 		
+		/*
 		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");  
 	    Date date = new Date();
 	    String formatedDate = formatter.format(date);
+		*/
 		
+	    /*
 	    Task task1 = new Task(null, teamMember1, "Conferir relatório", formatedDate);
 		Task task2 = new Task(null, teamMember1, "Realizar entrevista técnica", formatedDate);
 		Task task3 = new Task(null, teamMember2, "Conferir estoque", formatedDate);
@@ -61,10 +64,13 @@ public class TasksmanagerApplication implements CommandLineRunner{
 		Task task8 = new Task(null, teamMember2, "Acompanhar novo funcionário", formatedDate);
 		Task task9 = new Task(null, teamMember3, "Preparar apresentação PPT para o cliente", formatedDate);
 		Task task10 = new Task(null, teamMember3, "Enviar email para gerencia", formatedDate);
+		/*
 		
+		/*
 		teamMember1.setTasks(Arrays.asList(task1, task2, task5, task6));
 		teamMember2.setTasks(Arrays.asList(task3, task4, task7, task8));
 		teamMember3.setTasks(Arrays.asList(task9, task10));
+		*/
 		
 		positionRepository.save(position1);
 		positionRepository.save(position2);
@@ -75,6 +81,7 @@ public class TasksmanagerApplication implements CommandLineRunner{
 		teamMemberRepository.save(teamMember2);
 		teamMemberRepository.save(teamMember3);
 		
+		/*
 		taskRepository.save(task1);
 		taskRepository.save(task2);
 		taskRepository.save(task3);
@@ -85,6 +92,7 @@ public class TasksmanagerApplication implements CommandLineRunner{
 		taskRepository.save(task8);
 		taskRepository.save(task9);
 		taskRepository.save(task10);
+		*/
 	}
 
 }
